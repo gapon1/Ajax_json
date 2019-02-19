@@ -16,24 +16,24 @@
 
     <script type="text/javascript">
 
-        function funcBefore(){
-            $("#infortation").text("Wait for DATA");
-        }
-
-        function functSuccess(data){
-            $("#infortation").text(data);
-        }
 
         $(document).ready (function () {
-            $('#load').bind('click', function () {
-                var admin = "Admin";
+            $('#done').bind('click', function () {
                 $.ajax({
-                    url: "contebn.php",
+                    url: "check.php",
                     type: "POST",
-                    data: ({name: admin, pass: 123}),
+                    data: ({name: $('#name').val()}),
                     dataType: "html",
-                    beforeSend: funcBefore,
-                    success: functSuccess
+                    beforeSend: function () {
+                        $("#infortation").text("Wait for DATA");
+                    },
+                    success: function (data) {
+                         if (data == 'Used')
+                             alert("Name Used");
+                         else
+                             $("#infortation").text(data);
+
+                    }
 
                 });
 
@@ -51,7 +51,10 @@
 <div id="infortation"></div>
 
 
-
+<label>Enter your bane
+    <input type="text" id="name" name="name" placeholder="name">
+</label>
+<button type="submit" id="done" value="send">Ready</button>
 
 
 </body>
