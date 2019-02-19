@@ -4,44 +4,60 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <meta charset="UTF-8"/>
     <title>ajax</title>
+
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            $("select[name='country']").bind('change', function () {
+                $("select[name='city']").empty();
+
+                $.get("countryCheck.php", {country: $("select[name='country']").val()}, function (data) {
+
+                    data = JSON.parse(data);
+
+                    for (var id in data) {
+                        $("select[name='city']").append($("<option value='" + id + "'>" + data[id] + "</option>"));
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
 </head>
 <body>
 <h1>Авторизация </h1>
 <p id="contenr_p"></p>
-        <form id="my_form">
+<form id="my_form">
 
-            <hr/>
+    <hr/>
 
-            <input type="text" placeholder="Your name" name="name">
-            <input type="password" placeholder="password" name="password">
-            <button type="submit">Send</button>
+    <label>
+        Insert country
+    </label>
+    <select name="country">
+        <option value="0"></option>
+        <option value="1">USA</option>
+        <option value="2">UKraine</option>
+    </select>
 
-            <hr/>
-        </form>
 
-        <script type="text/javascript">
+    <label>
+        Cities
+    </label>
+    <select name="city">
+        <option value="0"></option>
 
-                $('#my_form').submit(function () {
+    </select>
 
-                    var str = $(this).serialize();
-                    $.ajax({
 
-                        type: "POST",
-                        url: "php/hello.php",
-                        data: str,
-                        success: function (html) {
-                            $('#contenr_p').html(html);
-                        }
-
-                    });
-
-                    return false;
-
-                });
-
-               setInterval('show()', 1000);
-
-        </script>
+    <hr/>
+</form>
 
 
 </body>
