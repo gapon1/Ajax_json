@@ -17,7 +17,7 @@ $(document).ready (function () {
             dataType: "json",
             success: function(result) {
                 if (result){
-                    $('.rows tr').remove();
+                    //$('.rows tr').remove();
                     $('.rows').append(function(){
                         var res = '';
                         for(var i = 0; i < result.users.name.length; i++){
