@@ -13,7 +13,7 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<form method="post">
+<form method="post" >
 <input type="text" name="name" class="nameField" placeholder="Введите имя">
 <input type="text" name="surname" class="surnameField" placeholder="Введите фамилию">
 <input type="text" name="age" class="ageField" placeholder="Введите возраст">

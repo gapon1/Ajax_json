@@ -22,28 +22,16 @@
 
 
 
-<form  method="post">
-    <input type="text" class="name_aj" name="name" placeholder="name">
-    <input type="text" class="last_aj" name="lastname" placeholder="lastname">
-    <input type="number" class="age_aj"  name="age" placeholder="age">
-
-    <button id="Myform" type="submit">Send</button>
-
+<form method="post" >
+    <input type="text" name="name" class="nameField" placeholder="Введите имя">
+    <input type="text" name="surname" class="surnameField" placeholder="Введите фамилию">
+    <input type="text" name="age" class="ageField" placeholder="Введите возраст">
+    <input type="submit" value="enter" class="button">
 </form>
 
-<div id="infortation"></div>
+<table class="rows">
 
-<div class="rows">
-    <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-
-</div>
-
+</table>
 
 </body>
 </html>

@@ -13,43 +13,58 @@ try {
 
     $pdo = new PDO("$driver:host=$host;dbname=$db_name;charset=$charset", $db_user, $db_pass, $options);
 
-
-    //======= insert data to DB  =========
-    $stmt = $pdo->prepare("INSERT INTO ajaxData (name, lastname, age) VALUES (:name, :lastname, :age)");
-    $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':lastname', $lastname);
-    $stmt->bindParam(':age', $age);
-
     // insert a row
     $name = $_POST['name'];
-    $lastname = $_POST['lastname'];
+    $surname = $_POST['surname'];
     $age = intval($_POST['age']);
+//    $stmt = $pdo->prepare("DELETE FROM test.ajaxData WHERE id BETWEEN 53 AND 77");
+//    $stmt->execute();
+//    exit();
+    if($name && $surname && $age){
+    //======= insert data to DB  =========
+    $stmt = $pdo->prepare("INSERT INTO ajaxData (name, surname, age) VALUES (:name, :surname, :age)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':surname', $surname);
+    $stmt->bindParam(':age', $age);
     $stmt->execute();
+
+
     //======= Select data from DB ========
 
 
 
-
-    $sql = 'SELECT id, name, lastname, age FROM ajaxData';
+    $sql = 'SELECT * FROM ajaxData ORDER BY id DESC';
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $rows =$stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($rows as $row){
-        echo "__" . $row['name'] . " - " . $row['lastname']. " - " . $row['age'];
-        echo "<br>";
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $users['id'][] = $row['id'];
+            $users['name'][] = $row['name'];
+            $users['surname'][] = $row['surname'];
+            $users['age'][] = $row['age'];
+        }
+        $message = 'Все хорошо';
+
+
+
+    }else{
+        $message = 'Не удалось записать и извлечь данные';
     }
 
 
-//
-//    $sql = 'DELETE FROM ajaxData WHERE id BETWEEN 2 AND 14';
-//    $stmt = $pdo->prepare($sql);
-//    $stmt->execute();
+    /** Возвращаем ответ скрипту */
 
+// Формируем масив данных для отправки
+    $out = array(
+        'message' => $message,
+        'users' => $users
+    );
 
+// Устанавливаем заголовот ответа в формате json
+    header('Content-Type: text/json; charset=utf-8');
 
-
-
+// Кодируем данные в формат json и отправляем
+    echo json_encode($out);
 
 
 

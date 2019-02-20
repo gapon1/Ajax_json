@@ -14,6 +14,7 @@ if($name && $surname && $age){
 	
 	//извлекаем все записи из таблицы
 	$query2 = $mysqli->query("SELECT * FROM `ajaxData` ORDER BY `id` DESC");
+    $row = $query2->fetch_assoc();
 
 	while($row = $query2->fetch_assoc()){
 		$users['id'][] = $row['id'];

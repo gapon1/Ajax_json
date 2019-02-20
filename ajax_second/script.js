@@ -1,30 +1,27 @@
 $(document).ready (function () {
-    $('#Myform').bind('click', function () {
-    var name = $('.name_aj').val();
-    var lastname = $('.last_aj').val();
-    var age  = $('.age_aj').val();
+    jQuery(".button").bind("click", function() {
+    var name = jQuery('.nameField').val();
+    var surname = jQuery('.surnameField').val();
+    var age = jQuery('.ageField').val();
 
-    $('.name_aj').val('');
-    $('.last_aj').val('');
-    $('.age_aj').val('');
+    jQuery('.nameField').val('');
+    jQuery('.surnameField').val('');
+    jQuery('.ageField').val('');
 
 
 
         $.ajax({
             url: "db_send.php",
             type: "POST",
-            data: ({name: name, lastname: lastname, age: age}),
+            data: ({name:name, surname:surname, age:age}),
             dataType: "json",
-            beforeSend: function () {
-                $("#infortation").text("Wait for DATA");
-            },
             success: function(result) {
                 if (result){
                     $('.rows tr').remove();
                     $('.rows').append(function(){
                         var res = '';
                         for(var i = 0; i < result.users.name.length; i++){
-                            res += '<tr><td>' + result.users.id[i] + '</td><td>' + result.users.name[i] + '</td><td>' + result.users.lastname[i] + '</td><td>' + result.users.age[i] + '</td></tr>';
+                            res += '<tr><td>' + result.users.id[i] + '</td><td>' + result.users.name[i] + '</td><td>' + result.users.surname[i] + '</td><td>' + result.users.age[i] + '</td></tr>';
                         }
                         return res;
                     });
